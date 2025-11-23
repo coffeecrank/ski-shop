@@ -1,0 +1,9 @@
+# Build results
+bin/
+obj/
+
+# SQLite database files
+*.db
+
+# Files containing sensitive information
+appsettings.json
