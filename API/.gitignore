@@ -4,6 +4,8 @@ obj/
 
 # SQLite database files
 *.db
+*.db-shm
+*.db-wal
 
 # Files containing sensitive information
 appsettings.json
