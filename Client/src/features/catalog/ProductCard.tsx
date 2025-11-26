@@ -2,11 +2,11 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@
 import { Link } from "react-router";
 import type { Product } from "./product.ts";
 
-type Props = {
+type ProductCardProps = {
   product: Product;
 };
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product }: ProductCardProps) {
   return (
     <Card elevation={3} sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: 280 }}>
       <CardMedia image={product.pictureUrl} sx={{ height: 240, backgroundSize: "cover" }} title={product.name} />
@@ -28,4 +28,4 @@ function ProductCard({ product }: Props) {
   );
 }
 
-export default ProductCard;
+export { ProductCard };

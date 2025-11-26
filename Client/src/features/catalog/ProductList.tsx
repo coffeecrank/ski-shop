@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import type { Product } from "./product.ts";
-import ProductCard from "./ProductCard.tsx";
+import { ProductCard } from "./ProductCard.tsx";
 
-type Props = {
+type ProductListProps = {
   products: Product[];
 };
 
-function ProductList({ products }: Props) {
+function ProductList({ products }: ProductListProps) {
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, justifyContent: "center" }}>
       {products.map((product) => (
@@ -16,4 +16,4 @@ function ProductList({ products }: Props) {
   );
 }
 
-export default ProductList;
+export { ProductList };

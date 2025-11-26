@@ -10,24 +10,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import type { Product } from "./product.ts";
+import { useFetchProductDetailsQuery } from "./catalogApi.ts";
 
 function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
+  const { data: product, isLoading } = useFetchProductDetailsQuery(id ? +id : 0);
 
-  useEffect(() => {
-    fetch(`https://localhost:7208/api/products/${id}`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data))
-      .catch((error) => console.log(error));
-  }, [id]);
-
-  if (product === null) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading || product === undefined) return <div>Loading...</div>;
 
   const productDetails = [
     { label: "Brand", value: product.brand },
@@ -75,4 +65,4 @@ function ProductDetails() {
   );
 }
 
-export default ProductDetails;
+export { ProductDetails };

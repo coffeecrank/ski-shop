@@ -1,32 +1,30 @@
 import { DarkMode, LightMode, ShoppingCart } from "@mui/icons-material";
-import { AppBar, Badge, Box, IconButton, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, Box, IconButton, LinearProgress, List, ListItem, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../store.ts";
+import { toggleDarkMode } from "../../uiSlice.ts";
 
-const midLinks = [
-  { title: "about", path: "/about" },
-  { title: "catalog", path: "/catalog" },
-  { title: "contact", path: "/contact" },
-];
+function NavBar() {
+  const { darkMode, isLoading } = useAppSelector((state) => state.ui);
+  const dispatch = useAppDispatch();
 
-const rightLinks = [
-  { title: "login", path: "/login" },
-  { title: "register", path: "/register" },
-];
+  const midLinks = [
+    { title: "about", path: "/about" },
+    { title: "catalog", path: "/catalog" },
+    { title: "contact", path: "/contact" },
+  ];
+  const rightLinks = [
+    { title: "login", path: "/login" },
+    { title: "register", path: "/register" },
+  ];
+  const navLinkStyles = {
+    "&.active": { color: "#baecf9" },
+    "&:hover": { color: "grey.500" },
+    color: "inherit",
+    textDecoration: "none",
+    typography: "h6",
+  };
 
-const navLinkStyles = {
-  "&.active": { color: "#baecf9" },
-  "&:hover": { color: "grey.500" },
-  color: "inherit",
-  textDecoration: "none",
-  typography: "h6",
-};
-
-type Props = {
-  darkMode: boolean;
-  toggleDarkMode: () => void;
-};
-
-function NavBar({ darkMode, toggleDarkMode }: Props) {
   return (
     <AppBar position="fixed">
       <Toolbar sx={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
@@ -34,7 +32,7 @@ function NavBar({ darkMode, toggleDarkMode }: Props) {
           <Typography component={NavLink} sx={navLinkStyles} to="/" variant="h6">
             SKI SHOP
           </Typography>
-          <IconButton onClick={toggleDarkMode}>
+          <IconButton onClick={() => dispatch(toggleDarkMode())} sx={{ ml: 1 }} color="inherit">
             {darkMode ? <DarkMode /> : <LightMode sx={{ color: "yellow" }} />}
           </IconButton>
         </Box>
@@ -60,8 +58,13 @@ function NavBar({ darkMode, toggleDarkMode }: Props) {
           </List>
         </Box>
       </Toolbar>
+      {isLoading && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress color="secondary" />
+        </Box>
+      )}
     </AppBar>
   );
 }
 
-export default NavBar;
+export { NavBar };

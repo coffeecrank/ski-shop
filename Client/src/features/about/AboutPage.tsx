@@ -2,4 +2,4 @@ function AboutPage() {
   return <div></div>;
 }
 
-export default AboutPage;
+export { AboutPage };
